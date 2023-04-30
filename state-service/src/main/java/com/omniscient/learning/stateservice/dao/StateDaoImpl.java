@@ -1,6 +1,8 @@
 package com.omniscient.learning.stateservice.dao;
 
 import com.omniscient.learning.stateservice.model.State;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -21,7 +23,8 @@ public class StateDaoImpl implements IStateDao {
 
     @PostConstruct
     public void prepareStateData() throws IOException {
-        List<String> stateCsv = Files.readAllLines(Paths.get("src/main/resources/states.csv"));
+        Resource resource = new ClassPathResource("states.csv");
+        List<String> stateCsv = Files.readAllLines(Paths.get(resource.getURI()));
         stateCsv.remove(0);
         stateCsv.forEach(state -> {
             String[] sa = state.split(",");
