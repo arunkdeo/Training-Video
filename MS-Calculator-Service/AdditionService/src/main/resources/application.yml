@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: ADDITION-SERVICE
+server:
+  servlet:
+    context-path: /addition
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://172.28.240.1:9191/eureka
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["health", "info", "metrics"]
+  endpoint:
+    info:
+      enabled: true

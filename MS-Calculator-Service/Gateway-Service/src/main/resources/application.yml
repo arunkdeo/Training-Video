@@ -1,0 +1,41 @@
+server:
+  port: 9090
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://172.28.240.1:9191/eureka
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["health", "info", "metrics"]
+  endpoint:
+    info:
+      enabled: true
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    discovery:
+      enabled: true
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: ADDITION-SERVICE
+              uri: lb://ADDITION-SERVICE
+              predicates:
+                - Path=/calservice/addition/**
+              filters:
+                - StripPrefix=1
+
+            - id: SUBTRACTION-SERVICE
+              uri: lb://SUBTRACTION-SERVICE
+              predicates:
+                - Path=/calservice/subtraction/**
+              filters:
+                - StripPrefix=1
