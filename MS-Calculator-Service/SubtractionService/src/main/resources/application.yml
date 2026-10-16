@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: SUBTRACTION-SERVICE
+server:
+  port: 8085
+  servlet:
+    context-path: /subtraction
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://172.28.240.1:9191/eureka
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["health", "info", "metrics"]
+  endpoint:
+    info:
+      enabled: true
